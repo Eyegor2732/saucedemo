@@ -1,0 +1,25 @@
+{
+  "name": "saucedemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "type-check": "tsc --noEmit",
+    "test": "playwright test",
+    "test-headed": "playwright test --headed",
+    "test:one-worker": "playwright test --workers=1",
+    "test:login": "playwright test tests/login.spec.ts",
+    "test:inventory": "playwright test tests/inventory.spec.ts",
+    "ci": "yarn lint && yarn test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.61.0",
+    "@types/node": "^25.9.3"
+  }
+}

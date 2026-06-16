@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+    "compilerOptions": {
+    "paths": {
+      "@utils/*": ["./utils/*"],
+      "@pageObjects/*": ["./pageObjects/*"],
+      "@data/*": ["./data/*"],
+    },
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": [
+    "tests",
+    "pageObjects",
+    "data",
+    "utils",
+    "api",
+    "pages",
+    "components",
+  ]
+}
