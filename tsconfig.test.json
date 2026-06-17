@@ -3,8 +3,9 @@
     "compilerOptions": {
     "paths": {
       "@utils/*": ["./utils/*"],
-      "@pageObjects/*": ["./pageObjects/*"],
       "@data/*": ["./data/*"],
+      "@pageObjects/*": ["./pageObjects/*"],
+      "@pages/*": ["./pageObjects/pages/*"],
     },
     "target": "ESNext",
     "module": "ESNext",
@@ -20,6 +21,6 @@
     "utils",
     "api",
     "pages",
-    "components",
+    "components", "thoughts/inventory.spec.ts",
   ]
 }

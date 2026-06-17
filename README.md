@@ -127,6 +127,35 @@ The report is also written to playwright-report/.
 - The base URL is set to https://www.saucedemo.com
 - The suite currently runs in Chromium
 
+## Framework Structure
+
+```text
+saucedemo/
+  data/
+    datasets/
+      inventorySortingSet.data.ts
+      negativeLoginSet.data.ts
+      positiveLoginSet.data.ts
+  pageObjects/
+    basePage.ts
+    pageFixtures.ts
+    pages/
+      inventoryPage.ts
+      loginPage.ts
+  tests/
+    inventory.spec.ts
+    login.spec.ts
+  utils/
+    commonMethods.ts
+  playwright.config.ts
+  tsconfig.json
+  tsconfig.app.json
+  tsconfig.node.json
+  tsconfig.test.json
+  package.json
+  README.md
+```
+
 ## Notes
 
 - npm test runs playwright test

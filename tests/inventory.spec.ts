@@ -1,7 +1,9 @@
-import { test, expect } from '@pageObjects/pageFixture';
-import { parseCurrencyStringToFloat } from '@utils/commonMethods';
+import { test, expect } from '@pageObjects/pageFixtures';
+import { InventorySortingData, InventorySortingSet } from '@data/datasets/inventorySortingSet.data';
 
 test.describe('Saucedemo Inventory', () => {
+  const inventorySortingDataSet: InventorySortingData[] = InventorySortingSet;
+
   test.afterEach(async ({ page }, testInfo) => {
     const finalPageScreenshot = await page.screenshot({
       fullPage: true,
@@ -26,7 +28,7 @@ test.describe('Saucedemo Inventory', () => {
     },
   );
 
-  test('inventory page should not be empty', async ({
+  test('TC-PRODUCT-01 - inventory page should not be empty', async ({
     inventoryPage,
   }) => {
     await test.step('Verify inventory items are displayed', async () => {
@@ -35,129 +37,15 @@ test.describe('Saucedemo Inventory', () => {
     });
   });
 
-  test('inventory page sorting Z-A', async ({ inventoryPage }) => {
-    let itemCount = 0;
-
-    await test.step('Verify inventory items are displayed', async () => {
-      itemCount = await inventoryPage.getInventoryItemCount();
-      expect(itemCount).toBeGreaterThan(0);
-    });
-
-    await test.step('Sort inventory items Z-A', async () => {
-      await inventoryPage.sortInventoryBy('za');
-      await expect(inventoryPage.sortingDropdown).toHaveValue('za');
-    });
-
-    await test.step('Verify inventory items are sorted Z-A', async () => {
-      for (let i = 0; i < itemCount - 1; i++) {
-        const currentName =
-          await inventoryPage.inventoryItemNameByIndex(i);
-        const nextName = await inventoryPage.inventoryItemNameByIndex(
-          i + 1,
-        );
-        expect(currentName).not.toBeNull();
-        expect(nextName).not.toBeNull();
-        if (currentName && nextName) {
-          expect(currentName.localeCompare(nextName)).toBeGreaterThanOrEqual(0);
-        }
-      }
+  inventorySortingDataSet.forEach((data) => {
+    test(`${data.testcase} - inventory page ${data.title}`, async ({ inventoryPage }) => {
+      await test.step(`Verify inventory items are sorted ${data.title}`, async () => {
+        await inventoryPage.sortAndVerifyInventory(data.select, data.isNameSort);
+      });
     });
   });
 
-  test('inventory page sorting A-Z', async ({ inventoryPage }) => {
-    let itemCount = 0;
-
-    await test.step('Verify inventory items are displayed', async () => {
-      itemCount = await inventoryPage.getInventoryItemCount();
-      expect(itemCount).toBeGreaterThan(0);
-    });
-
-    await test.step('Sort inventory items A-Z', async () => {
-      await inventoryPage.sortInventoryBy('az');
-      await expect(inventoryPage.sortingDropdown).toHaveValue('az');
-    });
-
-    await test.step('Verify inventory items are sorted A-Z', async () => {
-      for (let i = 0; i < itemCount - 1; i++) {
-        const currentName =
-          await inventoryPage.inventoryItemNameByIndex(i);
-        const nextName = await inventoryPage.inventoryItemNameByIndex(
-          i + 1,
-        );
-        expect(currentName).not.toBeNull();
-        expect(nextName).not.toBeNull();
-        if (currentName && nextName) {
-          expect(currentName.localeCompare(nextName)).toBeLessThanOrEqual(0);
-        }
-      }
-    });
-  });
-
-  test('inventory page sorting Price Low-High', async ({
-    inventoryPage,
-  }) => {
-    let itemCount = 0;
-
-    await test.step('Verify inventory items are displayed', async () => {
-      itemCount = await inventoryPage.getInventoryItemCount();
-      expect(itemCount).toBeGreaterThan(0);
-    });
-
-    await test.step('Sort inventory items Price Low-High', async () => {
-      await inventoryPage.sortInventoryBy('lohi');
-      await expect(inventoryPage.sortingDropdown).toHaveValue('lohi');
-    });
-
-    await test.step('Verify inventory items are sorted Price Low-High', async () => {
-      for (let i = 0; i < itemCount - 1; i++) {
-        const currentPrice =
-          await inventoryPage.inventoryItemPriceByIndex(i);
-        const nextPrice =
-          await inventoryPage.inventoryItemPriceByIndex(i + 1);
-        expect(currentPrice).not.toBeNull();
-        expect(nextPrice).not.toBeNull();
-        if (currentPrice !== null && nextPrice !== null) {
-          expect(parseCurrencyStringToFloat(currentPrice)).toBeLessThanOrEqual(
-            parseCurrencyStringToFloat(nextPrice),
-          );
-        }
-      }
-    });
-  });
-
-  test('inventory page sorting Price High-Low', async ({
-    inventoryPage,
-  }) => {
-    let itemCount = 0;
-
-    await test.step('Verify inventory items are displayed', async () => {
-      itemCount = await inventoryPage.getInventoryItemCount();
-      expect(itemCount).toBeGreaterThan(0);
-    });
-
-    await test.step('Sort inventory items Price High-Low', async () => {
-      await inventoryPage.sortInventoryBy('hilo');
-      await expect(inventoryPage.sortingDropdown).toHaveValue('hilo');
-    });
-
-    await test.step('Verify inventory items are sorted Price High-Low', async () => {
-      for (let i = 0; i < itemCount - 1; i++) {
-        const currentPrice =
-          await inventoryPage.inventoryItemPriceByIndex(i);
-        const nextPrice =
-          await inventoryPage.inventoryItemPriceByIndex(i + 1);
-        expect(currentPrice).not.toBeNull();
-        expect(nextPrice).not.toBeNull();
-        if (currentPrice !== null && nextPrice !== null) {
-          expect(
-            parseCurrencyStringToFloat(currentPrice),
-          ).toBeGreaterThanOrEqual(parseCurrencyStringToFloat(nextPrice));
-        }
-      }
-    });
-  });
-
-  test('expiring cookies should not allow access another page', async ({
+  test('TC-PRODUCT-08 - expiring cookies should not allow access another page', async ({
     loginPage,
     inventoryPage,
     page,
