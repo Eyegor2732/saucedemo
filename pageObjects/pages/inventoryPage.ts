@@ -3,10 +3,7 @@ import { parseCurrencyStringToFloat } from '@utils/commonMethods';
 
 export default class InventoryPage extends BasePage {
   readonly inventoryItems = this.page.locator('.inventory_item');
-  readonly shoppingCartBadge = this.page.locator('.shopping_cart_badge');
-  readonly inventoryTitle = this.page.locator('.title');
   readonly sortingDropdown = this.page.locator('.product_sort_container');
-  readonly shoppingCartLink = this.page.locator('.shopping_cart_link');
 
   async open() {
     await super.open('./inventory.html');
@@ -17,8 +14,8 @@ export default class InventoryPage extends BasePage {
   }
 
   async getShoppingCartItemCount(): Promise<number> {
-    if (await this.shoppingCartBadge.isVisible()) {
-      return parseInt((await this.shoppingCartBadge.textContent()) || '0', 10);
+    if (await this.header().shoppingCartBadge.isVisible()) {
+      return parseInt((await this.header().shoppingCartBadge.textContent()) || '0', 10);
     }
     return 0;
   }
@@ -120,6 +117,6 @@ export default class InventoryPage extends BasePage {
   }
 
   async openShoppingCart() {
-    await this.shoppingCartLink.click();
+    await this.header().shoppingCartLink.click();
   }
 }

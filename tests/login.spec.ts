@@ -30,9 +30,10 @@ test.describe('Saucedemo Login', () => {
       });
 
       await test.step('Verify successful login', async () => {
+        const header = inventoryPage.header();
         await page.waitForURL('./inventory.html');
-        await expect(inventoryPage.inventoryTitle).toBeVisible();
-        await expect(inventoryPage.inventoryTitle).toHaveText(
+        await expect(header.pageTitle).toBeVisible();
+        await expect(header.pageTitle).toHaveText(
           'Products',
         );
       });

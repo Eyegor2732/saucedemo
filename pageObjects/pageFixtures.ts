@@ -1,10 +1,12 @@
 import { test as base } from '@playwright/test';
 import LoginPage from '@pages/loginPage';
 import InventoryPage from '@pages/inventoryPage';
+import MenuModal from '@modals/menuModal';
 
 type PageObjects = {
   loginPage: LoginPage;
   inventoryPage: InventoryPage;
+  menuModal: MenuModal;
 };
 
 export const test = base.extend<PageObjects>({
@@ -13,6 +15,9 @@ export const test = base.extend<PageObjects>({
   },
   inventoryPage: async ({ page }, use) => {
     await use(new InventoryPage(page));
+  },
+  menuModal: async ({ page }, use) => {
+    await use(new MenuModal(page));
   },
 });
 

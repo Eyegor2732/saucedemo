@@ -6,6 +6,7 @@
       "@data/*": ["./data/*"],
       "@pageObjects/*": ["./pageObjects/*"],
       "@pages/*": ["./pageObjects/pages/*"],
+      "@modals/*": ["./pageObjects/modals/*"],
     },
     "target": "ESNext",
     "module": "ESNext",

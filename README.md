@@ -140,8 +140,13 @@ saucedemo/
       negativeLoginSet.data.ts
       positiveLoginSet.data.ts
   pageObjects/
+    base.pageComponents
     basePage.ts
     pageFixtures.ts
+    components/
+      header.ts
+    modals/
+      menuModal.ts
     pages/
       inventoryPage.ts
       loginPage.ts

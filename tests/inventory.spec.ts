@@ -17,12 +17,14 @@ test.describe('Saucedemo Inventory', () => {
 
   test.beforeEach(
     async ({ loginPage, inventoryPage, page }) => {
+      const header = inventoryPage.header();
+
       await loginPage.open();
       await expect(loginPage.loginButton).toBeVisible();
       await loginPage.login('standard_user', 'secret_sauce');
       await page.waitForURL('./inventory.html');
-      await expect(inventoryPage.inventoryTitle).toBeVisible();
-      await expect(inventoryPage.inventoryTitle).toHaveText(
+      await expect(header.pageTitle).toBeVisible();
+      await expect(header.pageTitle).toHaveText(
         'Products',
       );
     },

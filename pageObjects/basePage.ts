@@ -1,4 +1,5 @@
 import { type Page } from '@playwright/test';
+import Header from '@pageObjects/components/header';
 
 export abstract class BasePage {
   constructor(readonly page: Page) { }
@@ -7,6 +8,11 @@ export abstract class BasePage {
     await this.page.goto(path, {
       waitUntil: 'load',
     });
+  }
+
+  header(): Header {
+    const header = new Header(this.page.locator("#header_container"));
+    return header;
   }
 
 }
