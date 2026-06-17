@@ -131,6 +131,9 @@ The report is also written to playwright-report/.
 
 ```text
 saucedemo/
+  .github/
+    workflows/
+      playwright.yml
   data/
     datasets/
       inventorySortingSet.data.ts
