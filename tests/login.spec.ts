@@ -54,4 +54,32 @@ test.describe('Saucedemo Login', () => {
       });
     });
   });
+
+  test('TC-LOGIN-17 - Logout should clear session and redirect to login page',
+    async ({ loginPage, inventoryPage, menuModal, page }) => {
+      await test.step('Login with valid credentials', async () => {
+        await loginPage.login('standard_user', 'secret_sauce');
+        await page.waitForURL('./inventory.html');
+      });
+
+      await test.step('Open menu and click logout', async () => {
+        const header = inventoryPage.header();
+        await header.menuButton.click();
+        const cookies = await page.context().cookies();
+        const sessionCookieBeforeLogout = cookies.find(cookie => cookie.name === 'session-username');
+        expect(sessionCookieBeforeLogout).toBeDefined();
+        await menuModal.logoutLink.click();
+      });
+
+      await test.step('Verify redirection to login page', async () => {
+        await page.waitForURL('./');
+        await expect(loginPage.loginButton).toBeVisible();
+      });
+
+      await test.step('Verify session cookie is cleared', async () => {
+        const cookies = await page.context().cookies();
+        const sessionCookieAfterLogout = cookies.find(cookie => cookie.name === 'session-username');
+        expect(sessionCookieAfterLogout).toBeUndefined();
+      });
+    });
 });
