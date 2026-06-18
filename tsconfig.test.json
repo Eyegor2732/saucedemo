@@ -4,9 +4,11 @@
     "paths": {
       "@utils/*": ["./utils/*"],
       "@data/*": ["./data/*"],
+      "@datasets/*": ["./data/datasets/*"],
       "@pageObjects/*": ["./pageObjects/*"],
       "@pages/*": ["./pageObjects/pages/*"],
       "@modals/*": ["./pageObjects/modals/*"],
+      "@components/*": ["./pageObjects/components/*"]
     },
     "target": "ESNext",
     "module": "ESNext",
@@ -20,8 +22,7 @@
     "pageObjects",
     "data",
     "utils",
-    "api",
     "pages",
-    "components", "thoughts/inventory.spec.ts",
+    "components",
   ]
 }

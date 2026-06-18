@@ -1,5 +1,5 @@
 import { type Page } from '@playwright/test';
-import Header from '@pageObjects/components/header';
+import Header from '@components/header';
 
 export abstract class BasePage {
   constructor(readonly page: Page) { }
@@ -14,5 +14,4 @@ export abstract class BasePage {
     const header = new Header(this.page.locator("#header_container"));
     return header;
   }
-
 }

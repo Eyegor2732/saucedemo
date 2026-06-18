@@ -1,6 +1,6 @@
 import { test, expect } from '@pageObjects/pageFixtures';
-import { NegativeLoginData, NegativeLoginSet } from '@data/datasets/negativeLoginSet.data';
-import { PositiveLoginData, PositiveLoginSet } from '@data/datasets/positiveLoginSet.data';
+import { NegativeLoginData, NegativeLoginSet } from '@datasets/negativeLoginSet.data';
+import { PositiveLoginData, PositiveLoginSet } from '@datasets/positiveLoginSet.data';
 
 test.describe('Saucedemo Login', () => {
   const negativeLoginDataSet: NegativeLoginData[] = NegativeLoginSet;

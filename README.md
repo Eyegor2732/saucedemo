@@ -101,7 +101,7 @@ saucedemo/
       loginPage.ts
   tests/
     setup/
-      session-cookie.setup.ts
+      auth.setup.ts
     inventory.spec.ts
     login.spec.ts
   utils/

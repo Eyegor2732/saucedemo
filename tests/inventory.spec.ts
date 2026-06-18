@@ -1,5 +1,5 @@
 import { test, expect } from '@pageObjects/pageFixtures';
-import { InventorySortingData, InventorySortingSet } from '@data/datasets/inventorySortingSet.data';
+import { InventorySortingData, InventorySortingSet } from '@datasets/inventorySortingSet.data';
 
 test.describe('Saucedemo Inventory', () => {
   const inventorySortingDataSet: InventorySortingData[] = InventorySortingSet;
