@@ -1,148 +1,92 @@
 # SauceDemo Playwright Test Suite
 
-Automated end-to-end tests for [Sauce Demo](https://www.saucedemo.com) built with Playwright and TypeScript.
+Automated end-to-end tests for SauceDemo using Playwright and TypeScript.
 
 ## Prerequisites
 
-- Node.js 18 or newer
+- Node.js 18+
 - npm
 
 ## Install
 
-Clone the repository and install dependencies:
+1. Install dependencies:
+   npm install
+2. Install Playwright browsers (if needed):
+   npx playwright install
 
-```bash
-npm install
-```
+## Run Tests
 
-Install the Playwright browsers if they are not already available on your machine:
+1. Run all projects:
+   npm test
+2. Run headed mode:
+   npm run test-headed
+3. Run with one worker:
+   npm run test:one-worker
 
-```bash
-npx playwright install
-```
+## Project Model in Playwright Config
 
-## Run Tests Locally
+The suite is split into three Playwright projects in playwright.config.ts:
 
-Run the full test suite:
+1. setup-session-cookie
 
-```bash
-npm test
-```
+   - Runs only setup tests (*.setup.ts)
+   - Creates authenticated storage state for non-login tests
 
-Run the suite in headed mode to watch the browser:
+2. chromium-login
 
-```bash
-npm run test-headed
-```
+   - Runs only login specs (login.spec.ts)
+   - Does not depend on setup-auth state
 
-Run Playwright directly if you want to bypass npm scripts:
+3. chromium-authenticated
 
-```bash
-npx playwright test
-```
+   - Runs all tests except login and setup specs
+   - Depends on setup-session-cookie
+   - Uses storageState from playwright/.auth/session-cookie.json
 
-## Run Separate Test Files
+This enables login tests to validate real authentication flows while other specs reuse authenticated state.
 
-Run the login tests only:
+## Setup Auth Flow
 
-```bash
-npm run test:login
-```
+1. Setup test file:
+   tests/setup/session-cookie.setup.ts
+2. Cookie helper method:
+   utils/commonMethods.ts (createSaucedemoSessionCookie)
+3. Storage state output file:
+   playwright/.auth/session-cookie.json
 
-Run the inventory tests only:
+## Useful Commands
 
-```bash
-npm run test:inventory
-```
+1. Login tests only:
+   npm run test:login
+2. Inventory tests only:
+   npm run test:inventory
+3. Direct Playwright run:
+   npx playwright test
+4. Open HTML report:
+   npx playwright show-report
+5. Type-check:
+   npm run type-check
+6. Lint:
+   npm run lint
+7. Fix lint issues:
+   npm run lint:fix
 
-Run any specific file directly:
+## Test Structure
 
-```bash
-npx playwright test tests/login.spec.ts
-```
-
-Run multiple specific files:
-
-```bash
-npx playwright test tests/login.spec.ts tests/inventory.spec.ts
-```
-
-## Run Tests With 1 Worker
-
-Run the entire suite with one worker using npm script:
-
-```bash
-npm run test:one-worker
-```
-
-Run a specific file with one worker:
-
-```bash
-npx playwright test tests/login.spec.ts --workers=1
-```
-
-## Parallelism Default
-
-By default, this project uses full parallel mode in Playwright configuration:
-
-```ts
-fullyParallel: true
-```
-
-This is configured in [playwright.config.ts](playwright.config.ts).
-
-## Other Useful Commands
-
-Type-check the project:
-
-```bash
-npm run type-check
-```
-
-Run linting:
-
-```bash
-npm run lint
-```
-
-Fix lint issues automatically:
-
-```bash
-npm run lint:fix
-```
-
-## Test Output
-
-Playwright generates an HTML report after a run. Open it with:
-
-```bash
-npx playwright show-report
-```
-
-The report is also written to playwright-report/.
-
-## Configuration
-
-- Test files live in tests/
-- The base URL is set to https://www.saucedemo.com
-- The suite currently runs in Chromium
+- tests/login.spec.ts
+- tests/inventory.spec.ts
+- tests/setup/session-cookie.setup.ts
 
 ## Framework Structure
 
 ```text
 saucedemo/
-  .github/
-    workflows/
-      playwright.yml
   data/
     datasets/
       inventorySortingSet.data.ts
       negativeLoginSet.data.ts
       positiveLoginSet.data.ts
   pageObjects/
-    base.pageComponents
-    basePage.ts
-    pageFixtures.ts
     components/
       footer.ts
       header.ts
@@ -156,20 +100,20 @@ saucedemo/
       inventoryPage.ts
       loginPage.ts
   tests/
+    setup/
+      session-cookie.setup.ts
     inventory.spec.ts
     login.spec.ts
   utils/
     commonMethods.ts
+  playwright/
+    .auth/
+      .gitkeep
   playwright.config.ts
-  tsconfig.json
-  tsconfig.app.json
-  tsconfig.node.json
-  tsconfig.test.json
-  package.json
-  README.md
 ```
 
 ## Notes
 
-- npm test runs playwright test
-- The repository uses the Playwright HTML reporter for test results
+- Base URL is https://www.saucedemo.com.
+- HTML reports are generated under playwright-report/.
+- Test artifacts are generated under test-results/.

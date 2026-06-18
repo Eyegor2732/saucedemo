@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const sessionCookieStatePath = 'playwright/.auth/session-cookie.json';
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -29,8 +31,23 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
+      name: 'setup-session-cookie',
+      testMatch: /.*\.setup\.ts/,
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'chromium-login',
+      testMatch: /.*login\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'chromium-authenticated',
+      testIgnore: [/.*login\.spec\.ts/, /.*\.setup\.ts/],
+      dependencies: ['setup-session-cookie'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: sessionCookieStatePath,
+      },
     },
     // {
     //   name: 'firefox',

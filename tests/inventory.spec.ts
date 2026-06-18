@@ -16,19 +16,15 @@ test.describe('Saucedemo Inventory', () => {
   });
 
   test.beforeEach(
-    async ({ loginPage, inventoryPage, page }) => {
+    async ({ inventoryPage }) => {
       const header = inventoryPage.header();
 
-      await loginPage.open();
-      await expect(loginPage.loginButton).toBeVisible();
-      await loginPage.login('standard_user', 'secret_sauce');
-      await page.waitForURL('./inventory.html');
-      await expect(header.pageTitle).toBeVisible();
-      await expect(header.pageTitle).toHaveText(
-        'Products',
-      );
-    },
-  );
+      await test.step('Verify inventory page is accessible with session cookie', async () => {
+        await inventoryPage.open();
+        await expect(inventoryPage.header().pageTitle).toBeVisible();
+        await expect(header.pageTitle).toHaveText('Products');
+      });
+    });
 
   test('TC-PRODUCT-01 - inventory page should not be empty', async ({
     inventoryPage,
