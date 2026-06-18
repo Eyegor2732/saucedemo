@@ -1,10 +1,10 @@
 import { BasePage } from '@pageObjects/basePage';
 
 export default class LoginPage extends BasePage {
-  readonly usernameInput = this.page.locator('#user-name');
-  readonly passwordInput = this.page.locator('#password');
-  readonly loginButton = this.page.locator('#login-button');
-  readonly errorMessage = this.page.locator('[data-test="error"]');
+  readonly usernameInput = this.page.getByPlaceholder('Username');
+  readonly passwordInput = this.page.getByPlaceholder('Password');
+  readonly loginButton = this.page.getByRole('button', { name: 'Login' });
+  readonly errorMessage = this.page.getByTestId('error');
 
   async open() {
     await super.open('./');

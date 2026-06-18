@@ -2,8 +2,8 @@ import { BasePage } from '@pageObjects/basePage';
 import { parseCurrencyStringToFloat } from '@utils/commonMethods';
 
 export default class InventoryPage extends BasePage {
-  readonly inventoryItems = this.page.locator('.inventory_item');
-  readonly sortingDropdown = this.page.locator('.product_sort_container');
+  readonly inventoryItems = this.page.getByTestId('inventory-item');
+  readonly sortingDropdown = this.page.getByTestId('product-sort-container');
 
   async open() {
     await super.open('./inventory.html');

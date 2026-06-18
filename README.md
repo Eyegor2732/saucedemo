@@ -144,10 +144,15 @@ saucedemo/
     basePage.ts
     pageFixtures.ts
     components/
+      footer.ts
       header.ts
     modals/
       menuModal.ts
     pages/
+      cartPage.ts
+      checkoutCompletePage.ts
+      checkoutOnePage.ts
+      checkoutTwoPage.ts
       inventoryPage.ts
       loginPage.ts
   tests/
