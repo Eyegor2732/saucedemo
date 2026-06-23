@@ -1,4 +1,4 @@
-import { test, expect } from '@pageObjects/pageFixtures';
+import { test, expect, Cookie } from '@pageObjects/pageFixtures';
 import { InventorySortingData, InventorySortingSet } from '@datasets/inventorySortingSet.data';
 
 test.describe('Saucedemo Inventory', () => {
@@ -39,6 +39,7 @@ test.describe('Saucedemo Inventory', () => {
     test(`${data.testcase} - inventory page ${data.title}`, async ({ inventoryPage }) => {
       await test.step(`Verify inventory items are sorted ${data.title}`, async () => {
         await inventoryPage.sortAndVerifyInventory(data.select, data.isNameSort);
+        // expect(await inventoryPage.sortInventory(data.select, data.isNameSort)).toBe("Success");
       });
     });
   });
@@ -49,8 +50,8 @@ test.describe('Saucedemo Inventory', () => {
     page,
   }) => {
     await test.step('Simulate inactivity by expiring the session cookie', async () => {
-      const cookies = await page.context().cookies();
-      const sessionCookie = cookies.find(cookie => cookie.name === 'session-username');
+      const cookies: Cookie[] = await page.context().cookies();
+      const sessionCookie: Cookie | undefined = cookies.find(cookie => cookie.name === 'session-username');
       if (sessionCookie) {
         await page.context().addCookies([{
           ...sessionCookie,

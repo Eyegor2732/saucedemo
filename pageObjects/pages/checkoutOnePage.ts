@@ -8,21 +8,21 @@ export default class CheckoutOnePage extends BasePage {
   readonly cancelButton = this.page.getByRole('button', { name: 'Cancel' });
   readonly errorMessageContainer = this.page.getByTestId('error');
 
-  async open() {
+  async open(): Promise<void> {
     await super.open('./checkout-step-one.html');
   }
 
-  async fillCheckoutInformation(firstName: string, lastName: string, postalCode: string) {
+  async fillCheckoutInformation(firstName: string, lastName: string, postalCode: string): Promise<void> {
     await this.firstNameInput.fill(firstName);
     await this.lastNameInput.fill(lastName);
     await this.postalCodeInput.fill(postalCode);
   }
 
-  async clickContinue() {
+  async clickContinue(): Promise<void> {
     await this.continueButton.click();
   }
 
-  async clickCancel() {
+  async clickCancel(): Promise<void> {
     await this.cancelButton.click();
   }
 

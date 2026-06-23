@@ -5,11 +5,11 @@ export default class CheckoutCompletePage extends BasePage {
   readonly completeHeader = this.page.locator('.complete-header');
   readonly completeText = this.page.locator('.complete-text');
 
-  async open() {
+  async open(): Promise<void> {
     await super.open('./checkout-complete.html');
   }
 
-  async clickBackHome() {
+  async clickBackHome(): Promise<void> {
     await this.backHomeButton.click();
   }
 }

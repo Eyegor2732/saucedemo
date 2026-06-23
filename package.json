@@ -9,6 +9,7 @@
     "type-check": "tsc --noEmit",
     "test": "playwright test",
     "test-headed": "playwright test --headed",
+    "test:one-worker-headed": "playwright test --headed --workers=1",
     "test:one-worker": "playwright test --workers=1",
     "test:login": "playwright test tests/login.spec.ts",
     "test:inventory": "playwright test tests/inventory.spec.ts",
@@ -19,7 +20,12 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.61.0",
-    "@types/node": "^25.9.3"
+    "@types/node": "^25.9.3",
+    "eslint": "^10.5.0",
+    "globals": "^17.7.0",
+    "jiti": "^2.7.0",
+    "typescript-eslint": "^8.62.0"
   }
 }

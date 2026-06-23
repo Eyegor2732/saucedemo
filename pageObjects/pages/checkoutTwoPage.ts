@@ -7,15 +7,15 @@ export default class CheckoutTwoPage extends BasePage {
   readonly taxLabel = this.page.getByTestId('tax-label');
   readonly totalLabel = this.page.getByTestId('total-label');
 
-  async open() {
+  async open(): Promise<void> {
     await super.open('./checkout-step-two.html');
   }
 
-  async clickFinish() {
+  async clickFinish(): Promise<void> {
     await this.finishButton.click();
   }
 
-  async clickCancel() {
+  async clickCancel(): Promise<void> {
     await this.cancelButton.click();
   }
 

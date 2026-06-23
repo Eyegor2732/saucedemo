@@ -1,5 +1,6 @@
 import { type Page } from '@playwright/test';
 import Header from '@components/header';
+import Footer from '@components/footer';
 
 export abstract class BasePage {
   constructor(readonly page: Page) { }
@@ -10,8 +11,13 @@ export abstract class BasePage {
     });
   }
 
+  footer(): Footer {
+    const footer = new Footer(this.page.getByTestId("footer"));
+    return footer;
+  }
+
   header(): Header {
-    const header = new Header(this.page.locator("#header_container"));
+    const header = new Header(this.page.getByTestId("header-container"));
     return header;
   }
 }

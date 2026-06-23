@@ -45,4 +45,5 @@ export {
   expect,
   type Locator,
   type Page,
+  type Cookie
 } from '@playwright/test';

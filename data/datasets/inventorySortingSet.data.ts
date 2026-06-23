@@ -1,7 +1,9 @@
+import { SortOption } from '@pageObjects/pages/inventoryPage';
+
 export type InventorySortingData = {
   testcase: string;
   title: string;
-  select: string;
+  select: SortOption;
   isNameSort: boolean;
 };
 

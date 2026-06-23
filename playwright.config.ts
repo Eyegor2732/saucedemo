@@ -14,7 +14,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 2 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [['html', { open: process.env.CI ? 'never' : 'always' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -24,7 +24,9 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
-    /* Set custom id attribute */
+    /* Set custom id attribute 
+    default value is "data-testid", but since saucedemo uses "data-test" we need to set it to match the application under test.
+    */
     testIdAttribute: "data-test",
   },
 
