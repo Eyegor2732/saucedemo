@@ -1,13 +1,14 @@
 import { test, expect } from '@pageObjects/pageFixtures';
 import { NegativeLoginData, NegativeLoginSet } from '@datasets/negativeLoginSet.data';
 import { PositiveLoginData, PositiveLoginSet } from '@datasets/positiveLoginSet.data';
+import { Buffer } from 'buffer';
 
 test.describe('Saucedemo Login', () => {
   const negativeLoginDataSet: NegativeLoginData[] = NegativeLoginSet;
   const positiveLoginDataSet: PositiveLoginData[] = PositiveLoginSet;
 
   test.afterEach(async ({ page }, testInfo) => {
-    const finalPageScreenshot = await page.screenshot({
+    const finalPageScreenshot: Buffer = await page.screenshot({
       fullPage: true,
     });
 
@@ -47,6 +48,7 @@ test.describe('Saucedemo Login', () => {
       });
 
       await test.step('Verify error message is displayed', async () => {
+        await expect(loginPage.loginButton).toBeVisible();
         await expect(loginPage.errorMessage).toBeVisible();
         await expect(loginPage.errorMessage).toContainText(
           data.message,
@@ -81,5 +83,14 @@ test.describe('Saucedemo Login', () => {
         const sessionCookieAfterLogout = cookies.find(cookie => cookie.name === 'session-username');
         expect(sessionCookieAfterLogout).toBeUndefined();
       });
+    });
+
+  test(`TC-LOGIN-18 - login with performance_glitch_user should have delay greater than 4 seconds`,
+    async ({ loginPage, page }) => {
+      const startTime = Date.now();
+      await loginPage.login("performance_glitch_user", "secret_sauce");
+      await expect(page).toHaveURL('./inventory.html');
+      const elapsedTime = Date.now() - startTime;
+      expect(elapsedTime).toBeGreaterThan(4000);
     });
 });

@@ -1,4 +1,4 @@
-import { BasePageComponents } from "@pageObjects/base.pageComponents";
+import { BasePageComponents } from "@pageObjects/basePageComponents";
 
 export default class Footer extends BasePageComponents {
   readonly twitterLink = this.host.getByRole('link', { name: 'Twitter' });

@@ -7,7 +7,7 @@ import InventoryPage from '@pages/inventoryPage';
 import LoginPage from '@pages/loginPage';
 import MenuModal from '@modals/menuModal';
 
-type PageObjects = {
+export type PageObjects = {
   cartPage: CartPage;
   checkoutCompletePage: CheckoutCompletePage;
   checkoutOnePage: CheckoutOnePage;
@@ -45,5 +45,5 @@ export {
   expect,
   type Locator,
   type Page,
-  type Cookie
+  type Cookie,
 } from '@playwright/test';

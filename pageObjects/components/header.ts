@@ -1,4 +1,4 @@
-import { BasePageComponents } from "@pageObjects/base.pageComponents";
+import { BasePageComponents } from "@pageObjects/basePageComponents";
 
 export default class Header extends BasePageComponents {
   readonly headerTitle = this.host.getByTestId('header-label');

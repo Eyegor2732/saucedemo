@@ -86,6 +86,8 @@ saucedemo/
       inventorySortingSet.data.ts
       negativeLoginSet.data.ts
       positiveLoginSet.data.ts
+   types/
+      sortOptionTypes.ts
   pageObjects/
     components/
       footer.ts

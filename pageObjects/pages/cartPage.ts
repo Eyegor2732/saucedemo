@@ -32,12 +32,7 @@ export default class CartPage extends BasePage {
   };
 
   async getCartItems(): Promise<Locator[]> {
-    const items = [];
-    const count = await this.cartItems.count();
-    for (let i = 0; i < count; i++) {
-      items.push(this.cartItems.nth(i));
-    }
-    return items;
+    return await this.cartItems.all();
   }
 
   async getCartItemNameByIndex(index: number): Promise<string | null> {
